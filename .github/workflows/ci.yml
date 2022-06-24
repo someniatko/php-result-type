@@ -18,5 +18,5 @@ jobs:
                 run: php vendor/bin/phpcs
 
             -   name: psalm static analysis
-                run: php vendor/bin/psalm
+                run: php vendor/bin/psalm.phar
 
