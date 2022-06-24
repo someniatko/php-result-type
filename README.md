@@ -14,7 +14,7 @@ Unfortunately, there are several downsides of that library:
 
 
 ## Installation
-This library requires PHP 7.4 or 8.0.
+This library requires PHP 7.4, 8.0 or 8.1.
 You can install it via Composer:
 
 ```shell

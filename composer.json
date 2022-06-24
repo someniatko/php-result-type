@@ -3,7 +3,7 @@
     "license": "MIT",
     "description": "Functional-ish generic Result type: either Success or Error",
     "require": {
-        "php": "~7.4 || ~8.0"
+        "php": "7.4.* || 8.0.* || 8.1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
