@@ -20,7 +20,7 @@ interface ResultInterface
      *
      * @template TNewSuccess
      *
-     * @param callable(TSuccess):TNewSuccess $map
+     * @param pure-callable(TSuccess):TNewSuccess $map
      * @return self<TNewSuccess, TError>
      */
     public function map(callable $map): self;
@@ -34,7 +34,7 @@ interface ResultInterface
 
      * @template TNewError
      *
-     * @param callable(TError):TNewError $map
+     * @param pure-callable(TError):TNewError $map
      * @return self<TSuccess, TNewError>
      */
     public function mapError(callable $map): self;
@@ -47,7 +47,7 @@ interface ResultInterface
      * @template TNewSuccess
      * @template TNewError
      *
-     * @param callable(TSuccess):self<TNewSuccess, TNewError> $map
+     * @param pure-callable(TSuccess):self<TNewSuccess, TNewError> $map
      * @return self<TNewSuccess, TError|TNewError>
      */
     public function chain(callable $map): self;
