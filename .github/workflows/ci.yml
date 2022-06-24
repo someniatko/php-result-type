@@ -11,6 +11,9 @@ jobs:
                     coverage: none
             -   run: composer install -o
 
+            -   name: unit tests
+                run: php vendor/bin/phpunit
+
             -   name: code style
                 run: php vendor/bin/phpcs
 
