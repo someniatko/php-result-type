@@ -42,8 +42,13 @@ final class Error implements ResultInterface
         return $this->value;
     }
 
-    public function getSuccessOr(callable $map)
+    public function getOr(callable $map)
     {
         return $map($this->value);
+    }
+
+    public function getOrThrow(\Throwable $e)
+    {
+        throw $e;
     }
 }

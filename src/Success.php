@@ -41,7 +41,12 @@ final class Success implements ResultInterface
         return $this->value;
     }
 
-    public function getSuccessOr(callable $map)
+    public function getOr(callable $map)
+    {
+        return $this->value;
+    }
+
+    public function getOrThrow(\Throwable $e)
     {
         return $this->value;
     }

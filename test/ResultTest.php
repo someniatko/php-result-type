@@ -93,7 +93,7 @@ final class ResultTest extends TestCase
         /** @var ResultInterface<int, int> $result */
         $result = new Success(1500);
 
-        $unwrapped = $result->getSuccessOr(fn(int $error) => $error + 1);
+        $unwrapped = $result->getOr(fn(int $error) => $error + 1);
         self::assertEquals(1500, $unwrapped);
     }
 
@@ -102,7 +102,7 @@ final class ResultTest extends TestCase
         /** @var ResultInterface<int, int> $result */
         $result = new Error(1500);
 
-        $unwrapped = $result->getSuccessOr(fn(int $error) => $error + 1);
+        $unwrapped = $result->getOr(fn(int $error) => $error + 1);
         self::assertEquals(1501, $unwrapped);
     }
 
@@ -111,7 +111,7 @@ final class ResultTest extends TestCase
         /** @var ResultInterface<int, int> $result */
         $result = new Error(1500);
 
-        $unwrapped = $result->getSuccessOr(fn() => 1);
+        $unwrapped = $result->getOr(fn() => 1);
         self::assertEquals(1, $unwrapped);
     }
 
@@ -123,8 +123,27 @@ final class ResultTest extends TestCase
         $this->expectException(\RuntimeException::class);
 
         /** @psalm-suppress UnusedMethodCall */
-        $result->getSuccessOr(function () {
+        $result->getOr(function () {
             throw new \RuntimeException('expected');
         });
+    }
+
+    public function testGetOrThrowOnSuccess(): void
+    {
+        /** @var ResultInterface<int, int> $result */
+        $result = new Success(1500);
+
+        $unwrapped = $result->getOrThrow(new \RuntimeException('unexpected'));
+        self::assertEquals(1500, $unwrapped);
+    }
+
+    public function testGetOrThrowOnError(): void
+    {
+        /** @var ResultInterface<int, int> $result */
+        $result = new Error(1500);
+
+        $this->expectException(\RuntimeException::class);
+        /** @psalm-suppress UnusedMethodCall */
+        $result->getOrThrow(new \RuntimeException('expected'));
     }
 }

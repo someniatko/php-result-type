@@ -71,5 +71,11 @@ interface ResultInterface
      * @param pure-callable(TError):TNewError $map
      * @return TSuccess|TNewError
      */
-    public function getSuccessOr(callable $map);
+    public function getOr(callable $map);
+
+    /**
+     * @param \Throwable $e
+     * @return TSuccess|never-return
+     */
+    public function getOrThrow(\Throwable $e);
 }
