@@ -59,4 +59,17 @@ interface ResultInterface
      * @return TSuccess|TError
      */
     public function get();
+
+    /**
+     * Returns the value in case of Success,
+     * or computes it from given callable in case of Error.
+     *
+     * Equivalent to `$result->mapError($map)->get()`.
+     *
+     * @template TNewError
+     *
+     * @param pure-callable(TError):TNewError $map
+     * @return TSuccess|TNewError
+     */
+    public function getSuccessOr(callable $map);
 }

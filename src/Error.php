@@ -41,4 +41,9 @@ final class Error implements ResultInterface
     {
         return $this->value;
     }
+
+    public function getSuccessOr(callable $map)
+    {
+        return $map($this->value);
+    }
 }

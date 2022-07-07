@@ -87,4 +87,44 @@ final class ResultTest extends TestCase
         $mapped = $chained->map('strtoupper');
         self::assertEquals('Hello', $mapped->get());
     }
+
+    public function testGetSuccessOrOnSuccess(): void
+    {
+        /** @var ResultInterface<int, int> $result */
+        $result = new Success(1500);
+
+        $unwrapped = $result->getSuccessOr(fn(int $error) => $error + 1);
+        self::assertEquals(1500, $unwrapped);
+    }
+
+    public function testGetSuccessOrOnError(): void
+    {
+        /** @var ResultInterface<int, int> $result */
+        $result = new Error(1500);
+
+        $unwrapped = $result->getSuccessOr(fn(int $error) => $error + 1);
+        self::assertEquals(1501, $unwrapped);
+    }
+
+    public function testGetSuccessOrOnErrorClosureWithoutArgs(): void
+    {
+        /** @var ResultInterface<int, int> $result */
+        $result = new Error(1500);
+
+        $unwrapped = $result->getSuccessOr(fn() => 1);
+        self::assertEquals(1, $unwrapped);
+    }
+
+    public function testGetSuccessOrOnErrorClosureThrows(): void
+    {
+        /** @var ResultInterface<int, int> $result */
+        $result = new Error(1500);
+
+        $this->expectException(\RuntimeException::class);
+
+        /** @psalm-suppress UnusedMethodCall */
+        $result->getSuccessOr(function () {
+            throw new \RuntimeException('expected');
+        });
+    }
 }

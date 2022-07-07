@@ -40,4 +40,9 @@ final class Success implements ResultInterface
     {
         return $this->value;
     }
+
+    public function getSuccessOr(callable $map)
+    {
+        return $this->value;
+    }
 }
