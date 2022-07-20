@@ -37,6 +37,7 @@ final class Error implements ResultInterface
         return $this;
     }
 
+    /** @return TError */
     public function get()
     {
         return $this->value;

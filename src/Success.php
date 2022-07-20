@@ -36,6 +36,7 @@ final class Success implements ResultInterface
         return $map($this->value);
     }
 
+    /** @return TSuccess */
     public function get()
     {
         return $this->value;
