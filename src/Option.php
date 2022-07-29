@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Someniatko\ResultType;
 
 /**
- * @psalm-immutable
  * @template-covariant TValue
  */
 abstract class Option
@@ -14,6 +13,7 @@ abstract class Option
     private static ?None $none = null;
 
     /**
+     * @psalm-pure
      * @template TNew
      * @param TNew $value
      * @return Some<TNew>
@@ -24,10 +24,12 @@ abstract class Option
     }
 
     /**
+     * @psalm-pure
      * @return None
      */
     public static function none(): None
     {
+        /** @psalm-suppress ImpureStaticProperty */
         return self::$none ??= new None();
     }
 
@@ -44,6 +46,7 @@ abstract class Option
     }
 
     /**
+     * @psalm-pure
      * @template T
      * @param list<Option<T>> $options
      * @return Option<list<T>>
@@ -80,6 +83,7 @@ abstract class Option
     }
 
     /**
+     * @psalm-mutation-free
      * @template TMap
      * @param callable(TValue):TMap $map
      * @return Option<TMap>
@@ -87,6 +91,7 @@ abstract class Option
     abstract public function map(callable $map): Option;
 
     /**
+     * @psalm-mutation-free
      * @template TMap
      * @param callable(TValue):Option<TMap> $map
      * @return Option<TMap>
@@ -94,6 +99,7 @@ abstract class Option
     abstract public function flatMap(callable $map): Option;
 
     /**
+     * @psalm-mutation-free
      * @template TElse
      * @param callable():TElse $else
      * @return TValue|TElse
@@ -101,6 +107,7 @@ abstract class Option
     abstract public function getOr(callable $else);
 
     /**
+     * @psalm-mutation-free
      * @template TElse
      * @param TElse $else
      * @return TValue|TElse
@@ -108,10 +115,21 @@ abstract class Option
     abstract public function getOrElse($else);
 
     /**
+     * @psalm-mutation-free
      * @param \Throwable $e
      * @return TValue|never-return
      */
     abstract public function getOrThrow(\Throwable $e);
+
+    /**
+     * Consumes the Option value into one of the given callbacks.
+     * Only one of them will be called, depending on whether it's Some or None.
+     *
+     * @psalm-suppress InvalidTemplateParam
+     * @param callable(TValue):void $ifSome
+     * @param callable():void $ifNone
+     */
+    abstract public function process(callable $ifSome, callable $ifNone): void;
 
     /**
      * @template TElse
@@ -126,6 +144,7 @@ abstract class Option
     }
 
     /**
+     * @psalm-mutation-free
      * @template TElse
      * @param callable():TElse $else
      * @return ResultInterface<TValue, TElse>
@@ -138,6 +157,7 @@ abstract class Option
     }
 
     /**
+     * @psalm-mutation-free
      * @return TValue|null
      */
     public function toNullable()

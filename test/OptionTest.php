@@ -124,4 +124,22 @@ final class OptionTest extends TestCase
         $nullable = $option->toNullable();
         self::assertNull($nullable);
     }
+
+    public function testProcessSome(): void
+    {
+        $option = Option::some(123);
+        $option->process(
+            fn(int $a) => self::assertEquals(123, $a),
+            fn() => self::assertFalse(true),
+        );
+    }
+
+    public function testProcessNone(): void
+    {
+        $option = Option::none();
+        $option->process(
+            fn(int $a) => self::assertEquals(123, $a),
+            fn() => self::assertTrue(true),
+        );
+    }
 }
