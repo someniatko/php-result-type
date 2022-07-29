@@ -6,6 +6,7 @@ namespace Test;
 
 use PHPUnit\Framework\TestCase;
 use Someniatko\ResultType\Error;
+use Someniatko\ResultType\Result;
 use Someniatko\ResultType\ResultInterface;
 use Someniatko\ResultType\Success;
 
@@ -145,5 +146,31 @@ final class ResultTest extends TestCase
         $this->expectException(\RuntimeException::class);
         /** @psalm-suppress UnusedMethodCall */
         $result->getOrThrow(new \RuntimeException('expected'));
+    }
+
+    public function testSuccesses(): void
+    {
+        $results = [
+            Result::success(1),
+            Result::success(2),
+            Result::error(3),
+            Result::success(4),
+            Result::error(5),
+        ];
+
+        self::assertEquals([ 1, 2, 4 ], Result::extractSuccesses($results));
+    }
+
+    public function testErrors(): void
+    {
+        $results = [
+            Result::success(1),
+            Result::success(2),
+            Result::error(3),
+            Result::success(4),
+            Result::error(5),
+        ];
+
+        self::assertEquals([ 3, 5 ], Result::extractErrors($results));
     }
 }

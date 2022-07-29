@@ -6,10 +6,10 @@ namespace Someniatko\ResultType;
 
 /**
  * @template-covariant TError
- * @template-implements ResultInterface<never-return, TError>
+ * @template-extends Result<never, TError>
  * @psalm-immutable
  */
-final class Error implements ResultInterface
+final class Error extends Result
 {
     /** @var TError */
     private $value;

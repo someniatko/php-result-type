@@ -6,10 +6,10 @@ namespace Someniatko\ResultType;
 
 /**
  * @template-covariant TSuccess
- * @template-implements ResultInterface<TSuccess, never-return>
+ * @template-extends Result<TSuccess, never>
  * @psalm-immutable
  */
-final class Success implements ResultInterface
+final class Success extends Result
 {
     /** @var TSuccess */
     private $value;
