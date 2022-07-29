@@ -94,4 +94,34 @@ final class OptionTest extends TestCase
         /** @psalm-suppress UnusedMethodCall */
         $option->getOrThrow(new \RuntimeException('expected'));
     }
+
+    public function testFromNullableGivenValue(): void
+    {
+        $option = Option::fromNullable(123);
+        $mapped = $option->map(fn(int $val) => $val + 1);
+        self::assertEquals(124, $mapped->getOrElse(-1));
+    }
+
+    public function testFromNullableGivenNull(): void
+    {
+        /** @var Option<int> $option */
+        $option = Option::fromNullable(null);
+        $mapped = $option->map(fn(int $val) => $val + 1);
+        self::assertEquals(-1, $mapped->getOrElse(-1));
+    }
+
+    public function testToNullableSome(): void
+    {
+        $option = Option::some(123);
+        $nullable = $option->toNullable();
+        self::assertEquals(123, $nullable);
+    }
+
+    public function testToNullableNone(): void
+    {
+        /** @var Option<int> $option */
+        $option = Option::none();
+        $nullable = $option->toNullable();
+        self::assertNull($nullable);
+    }
 }

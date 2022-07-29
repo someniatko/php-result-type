@@ -23,12 +23,24 @@ abstract class Option
         return new Some($value);
     }
 
-    /**y
+    /**
      * @return None
      */
     public static function none(): None
     {
         return self::$none ??= new None();
+    }
+
+    /**
+     * @template TNew
+     * @param TNew|null $value
+     * @return Option<TNew>
+     */
+    public static function fromNullable($value): Option
+    {
+        return $value === null
+            ? self::none()
+            : self::some($value);
     }
 
     /**
@@ -123,5 +135,13 @@ abstract class Option
         return $this
             ->map(fn($t) => new Success($t))
             ->getOr(fn() => new Error($else()));
+    }
+
+    /**
+     * @return TValue|null
+     */
+    public function toNullable()
+    {
+        return $this->getOrElse(null);
     }
 }
