@@ -78,4 +78,18 @@ interface ResultInterface
      * @return TSuccess|never-return
      */
     public function getOrThrow(\Throwable $e);
+
+    /**
+     * Ensures that the Success value also validates against the given condition,
+     * Otherwise returns an Error with a given value.
+     *
+     * If this Result is already an Error, nothing will change.
+     *
+     * @template TNewError
+     *
+     * @param callable(TSuccess):bool $condition
+     * @param TNewError $else
+     * @return ResultInterface<TSuccess, TError|TNewError>
+     */
+    public function ensure(callable $condition, $else): self;
 }

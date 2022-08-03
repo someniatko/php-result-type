@@ -51,4 +51,11 @@ final class Success extends Result
     {
         return $this->value;
     }
+
+    public function ensure(callable $condition, $else): ResultInterface
+    {
+        return $condition($this->value)
+            ? $this
+            : Result::error($else);
+    }
 }

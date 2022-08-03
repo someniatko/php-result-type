@@ -46,4 +46,11 @@ final class Some extends Option
     {
         return $this->value;
     }
+
+    public function ensure(callable $condition): Option
+    {
+        return $condition($this->value)
+            ? $this
+            : Option::none();
+    }
 }

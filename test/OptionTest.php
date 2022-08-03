@@ -124,4 +124,26 @@ final class OptionTest extends TestCase
         $nullable = $option->toNullable();
         self::assertNull($nullable);
     }
+
+    public function testEnsureSomeReturningTrue(): void
+    {
+        $option = Option::some(111);
+        $ensured = $option->ensure(fn (int $i) => $i > 100);
+        self::assertEquals(111, $ensured->getOrElse(null));
+    }
+
+    public function testEnsureSomeReturningFalse(): void
+    {
+        $option = Option::some(111);
+        $ensured = $option->ensure(fn (int $i) => $i < 100);
+        self::assertEquals(null, $ensured->getOrElse(null));
+    }
+
+    public function testEnsureNone(): void
+    {
+        /** @var Option<int> $option */
+        $option = Option::none();
+        $ensured = $option->ensure(fn (int $i) => $i > 100);
+        self::assertEquals(null, $ensured->getOrElse(null));
+    }
 }

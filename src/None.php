@@ -34,4 +34,9 @@ final class None extends Option
     {
         throw $e;
     }
+
+    public function ensure(callable $condition): Option
+    {
+        return $this;
+    }
 }

@@ -14,6 +14,7 @@ abstract class Option
     private static ?None $none = null;
 
     /**
+     * @psalm-pure
      * @template TNew
      * @param TNew $value
      * @return Some<TNew>
@@ -24,10 +25,12 @@ abstract class Option
     }
 
     /**
+     * @psalm-pure
      * @return None
      */
     public static function none(): None
     {
+        /** @psalm-suppress ImpureStaticProperty */
         return self::$none ??= new None();
     }
 
@@ -112,6 +115,16 @@ abstract class Option
      * @return TValue|never-return
      */
     abstract public function getOrThrow(\Throwable $e);
+
+    /**
+     * Ensures that Some value also validates against the given condition,
+     * Otherwise returns None.
+     *
+     * @return Option<TValue>
+     *
+     * @param callable(TValue):bool $condition
+     */
+    abstract public function ensure(callable $condition): Option;
 
     /**
      * @template TElse

@@ -173,4 +173,25 @@ final class ResultTest extends TestCase
 
         self::assertEquals([ 3, 5 ], Result::extractErrors($results));
     }
+
+    public function testEnsureSuccessReturningTrue(): void
+    {
+        $result = Result::success(123);
+        $ensured = $result->ensure(fn(int $i) => $i > 100, 'failed');
+        self::assertEquals(123, $ensured->get());
+    }
+
+    public function testEnsureSuccessReturningFalse(): void
+    {
+        $result = Result::success(123);
+        $ensured = $result->ensure(fn(int $i) => $i < 100, 'failed');
+        self::assertEquals('failed', $ensured->get());
+    }
+
+    public function testEnsureErrorDoesNotChangePreviousError(): void
+    {
+        $result = Result::error('old error');
+        $ensured = $result->ensure(fn(int $i) => $i > 100, 'new error');
+        self::assertEquals('old error', $ensured->get());
+    }
 }

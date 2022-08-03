@@ -13,6 +13,7 @@ namespace Someniatko\ResultType;
 abstract class Result implements ResultInterface
 {
     /**
+     * @psalm-pure
      * @template T
      * @param T $value
      * @return Success<T>
@@ -23,6 +24,7 @@ abstract class Result implements ResultInterface
     }
 
     /**
+     * @psalm-pure
      * @template T
      * @param T $value
      * @return Error<T>

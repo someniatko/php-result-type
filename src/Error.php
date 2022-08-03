@@ -52,4 +52,9 @@ final class Error extends Result
     {
         throw $e;
     }
+
+    public function ensure(callable $condition, $else): ResultInterface
+    {
+        return $this;
+    }
 }
