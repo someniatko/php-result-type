@@ -37,6 +37,7 @@ abstract class Result implements ResultInterface
     /**
      * Filters and extracts values only of Success results from the given array.
      *
+     * @psalm-pure
      * @template S
      * @param list<ResultInterface<S, mixed>> $results
      * @return list<S>
@@ -67,6 +68,7 @@ abstract class Result implements ResultInterface
     /**
      * Filters and extracts values only of Error results from the given array.
      *
+     * @psalm-pure
      * @template E
      * @param list<ResultInterface<mixed, E>> $results
      * @return list<E>

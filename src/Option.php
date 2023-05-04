@@ -35,6 +35,7 @@ abstract class Option
     }
 
     /**
+     * @psalm-pure
      * @template TNew
      * @param TNew|null $value
      * @return Option<TNew>
@@ -47,6 +48,7 @@ abstract class Option
     }
 
     /**
+     * @psalm-pure
      * @template T
      * @param list<Option<T>> $options
      * @return Option<list<T>>
