@@ -10,7 +10,10 @@ you want typechecking of your code.
 Unfortunately, there are several downsides of that library:
 - while it's also typed with Psalm annotations, actually using and checking against them might be painful.
 - it's coupled to the `phpoption/phpoption` library which unfortunately suffers from the same problem.
-- there is no convenience method in Result interface which would allow getting either value from it. 
+- there is no convenience method in Result interface which would allow getting either value from it.
+
+
+Works best with [`someniatko/result-type-psalm-plugin`][psalm-plugin]!
 
 
 ## Installation
@@ -44,3 +47,7 @@ $value = (new Success('Let it be'))
     ->mapError(fn (string $s) => strtoupper($s)) // Error<'SHORT TEXT'>
     ->get(); // 'SHORT TEXT'
 ```
+
+
+
+[psalm-plugin]: https://packagist.org/packages/someniatko/result-type-psalm-plugin
