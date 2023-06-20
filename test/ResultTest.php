@@ -194,4 +194,35 @@ final class ResultTest extends TestCase
         $ensured = $result->ensure(fn(int $i) => $i > 100, 'new error');
         self::assertEquals('old error', $ensured->get());
     }
+
+    public function testAllWhenOnlySuccesses(): void
+    {
+        $resultA = Result::success('A');
+        $resultB = Result::success(23);
+
+        $all = Result::all([ $resultA, $resultB ]);
+        self::assertInstanceOf(Success::class, $all);
+        self::assertEquals([ 'A', 23 ], $all->get());
+    }
+
+    public function testAllWhenOnlyErrors(): void
+    {
+        $resultA = Result::error(1);
+        $resultB = Result::error('B');
+
+        $all = Result::all([ $resultA, $resultB ]);
+        self::assertInstanceOf(Error::class, $all);
+        self::assertEquals([ 1, 'B' ], $all->get());
+    }
+
+    public function testAllWhenMixedErrorsAndSuccesses(): void
+    {
+        $resultA = Result::error(1);
+        $resultB = Result::success('B');
+        $resultC = Result::error(false);
+
+        $all = Result::all([ $resultA, $resultB, $resultC ]);
+        self::assertInstanceOf(Error::class, $all);
+        self::assertEquals([ 1, false ], $all->get());
+    }
 }

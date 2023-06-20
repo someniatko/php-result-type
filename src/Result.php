@@ -95,4 +95,25 @@ abstract class Result implements ResultInterface
             [],
         );
     }
+
+    /**
+     * If all given results are Success,
+     *  returns a Success with array of extracted Success values.
+     * Otherwise, if at least one is an Error
+     *  returns an Error with array of extracted Error values.
+     *
+     * @psalm-pure
+     * @template T
+     * @template E
+     * @param list<ResultInterface<T, E>> $results
+     * @return ResultInterface<list<T>, list<E>>
+     */
+    public static function all(array $results): ResultInterface
+    {
+        $errors = self::extractErrors($results);
+
+        return empty($errors)
+            ? self::success(self::extractSuccesses($results))
+            : self::error($errors);
+    }
 }
