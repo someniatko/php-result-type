@@ -20,11 +20,21 @@ final class None extends Option
         return $this;
     }
 
+    /**
+     * @template TElse
+     * @param callable():TElse $else
+     * @return TElse
+     */
     public function getOr(callable $else)
     {
         return $else();
     }
 
+    /**
+     * @template TElse
+     * @param TElse $else
+     * @return TElse
+     */
     public function getOrElse($else)
     {
         return $else;

@@ -43,6 +43,12 @@ final class Error extends Result
         return $this->value;
     }
 
+    /**
+     * @template TNewError
+     *
+     * @param callable(TError):TNewError $map
+     * @return TNewError
+     */
     public function getOr(callable $map)
     {
         return $map($this->value);

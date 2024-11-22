@@ -191,6 +191,7 @@ final class ResultTest extends TestCase
     public function testEnsureErrorDoesNotChangePreviousError(): void
     {
         $result = Result::error('old error');
+        /** @psalm-var Result $result */
         $ensured = $result->ensure(fn(int $i) => $i > 100, 'new error');
         self::assertEquals('old error', $ensured->get());
     }
