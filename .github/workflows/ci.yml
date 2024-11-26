@@ -33,3 +33,17 @@ jobs:
 
             -   name: unit tests
                 run: php vendor/bin/phpunit
+
+    test-84:
+        runs-on: ubuntu-22.04
+        steps:
+            -   uses: actions/checkout@v3
+            -   uses: shivammathur/setup-php@v2
+                with:
+                    php-version: 8.4
+                    tools: composer:v2
+                    coverage: none
+            -   run: composer install -o --ignore-platform-reqs # vimeo/psalm is not supported yet on PHP 8.4
+
+            -   name: unit tests
+                run: php vendor/bin/phpunit
