@@ -17,11 +17,11 @@ Works best with [`someniatko/result-type-psalm-plugin`][psalm-plugin]!
 
 
 ## Installation
-This library requires PHP 7.4, 8.0, 8.1 or 8.2.
+This library requires PHP 7.4, 8.0, 8.1, 8.2, 8.3, 8.4.
 You can install it via Composer:
 
 ```shell
-composer install someniatko/result-type
+composer install someniatko/result-xtype
 ```
 
 
