@@ -1,14 +1,15 @@
 on: [ push, pull_request ]
 jobs:
-    test-74:
+    test-82:
         runs-on: ubuntu-22.04
         steps:
             -   uses: actions/checkout@v3
             -   uses: shivammathur/setup-php@v2
                 with:
-                    php-version: 7.4
+                    php-version: 8.2
                     tools: composer:v2
                     coverage: none
+
             -   run: composer install -o
 
             -   name: unit tests
@@ -19,20 +20,6 @@ jobs:
 
             -   name: psalm static analysis
                 run: php vendor/bin/psalm
-
-    test-82:
-        runs-on: ubuntu-22.04
-        steps:
-            -   uses: actions/checkout@v3
-            -   uses: shivammathur/setup-php@v2
-                with:
-                    php-version: 8.2
-                    tools: composer:v2
-                    coverage: none
-            -   run: composer install -o
-
-            -   name: unit tests
-                run: php vendor/bin/phpunit
 
     test-84:
         runs-on: ubuntu-22.04
