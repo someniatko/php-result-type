@@ -21,7 +21,7 @@ This library requires PHP 8.2, 8.3 or 8.4.
 You can install it via Composer:
 
 ```shell
-composer install someniatko/result-xtype
+composer install someniatko/result-type
 ```
 
 
