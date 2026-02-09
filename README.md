@@ -17,7 +17,7 @@ Works best with [`someniatko/result-type-psalm-plugin`][psalm-plugin]!
 
 
 ## Installation
-This library requires PHP 8.2, 8.3 or 8.4.
+This library requires PHP 8.2, 8.3, 8.4 or 8.5.
 You can install it via Composer:
 
 ```shell
