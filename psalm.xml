@@ -21,5 +21,6 @@
 
     <issueHandlers>
         <ImpureFunctionCall errorLevel="info"/>
+        <MissingOverrideAttribute errorLevel="suppress"/>
     </issueHandlers>
 </psalm>
