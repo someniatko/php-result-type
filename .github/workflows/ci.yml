@@ -30,7 +30,7 @@ jobs:
                     php-version: 8.4
                     tools: composer:v2
                     coverage: none
-            -   run: composer install -o --ignore-platform-reqs # vimeo/psalm is not supported yet on PHP 8.4
+            -   run: composer install -o
 
             -   name: unit tests
                 run: php vendor/bin/phpunit
@@ -44,7 +44,7 @@ jobs:
                     php-version: 8.5
                     tools: composer:v2
                     coverage: none
-            -   run: composer install -o --ignore-platform-reqs # vimeo/psalm is not supported yet on PHP 8.4
+            -   run: composer install -o
 
             -   name: unit tests
                 run: php vendor/bin/phpunit
